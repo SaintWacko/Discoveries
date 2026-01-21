@@ -9,9 +9,7 @@ namespace Discoveries
         {
             if (!DiscoveriesMod.settings.saveToClient)
             {
-                DiscoveryTracker.discoveredThingDefNames.Clear();
-                DiscoveryTracker.discoveredXenotypeDefNames.Clear();
-                DiscoveryTracker.discoveredCustomXenotypes.Clear();
+                DiscoveryTracker.Reset();
             }
         }
     }

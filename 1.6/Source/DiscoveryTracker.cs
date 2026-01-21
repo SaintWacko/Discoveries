@@ -108,5 +108,13 @@ namespace Discoveries
             Scribe_Collections.Look(ref discoveredCustomXenotypes, "discoveredCustomXenotypes", LookMode.Value);
             Scribe_Collections.Look(ref discoveredResearchProjectDefNames, "discoveredResearchProjectDefNames", LookMode.Value);
         }
+
+        public static void Reset()
+        {
+            discoveredThingDefNames.Clear();
+            discoveredXenotypeDefNames.Clear();
+            discoveredCustomXenotypes.Clear();
+            discoveredResearchProjectDefNames.Clear();
+        }
     }
 }

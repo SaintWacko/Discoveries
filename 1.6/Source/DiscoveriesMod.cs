@@ -31,18 +31,14 @@ namespace Discoveries
             {
                 if (!settings.saveToClient)
                 {
-                    DiscoveryTracker.discoveredThingDefNames.Clear();
-                    DiscoveryTracker.discoveredXenotypeDefNames.Clear();
-                    DiscoveryTracker.discoveredCustomXenotypes.Clear();
+                    DiscoveryTracker.Reset();
                 }
             }
             if (listing.ButtonText("Disc_ResetClient".Translate()))
             {
                 if (settings.saveToClient)
                 {
-                    DiscoveryTracker.discoveredThingDefNames.Clear();
-                    DiscoveryTracker.discoveredXenotypeDefNames.Clear();
-                    DiscoveryTracker.discoveredCustomXenotypes.Clear();
+                    DiscoveryTracker.Reset();
                 }
             }
             listing.End();

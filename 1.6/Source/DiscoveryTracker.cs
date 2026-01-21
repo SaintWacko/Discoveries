@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using RimWorld;
 using Verse;
+using Verse.Sound;
 namespace Discoveries
 {
     [HotSwappable]
@@ -76,6 +78,7 @@ namespace Discoveries
                         continue;
                 }
                 MarkDiscovered(thing);
+                UnlockResearchForThing(thing, showMessage: false);
             }
         }
         public static bool IsResearchDiscovered(ResearchProjectDef research)
@@ -95,11 +98,130 @@ namespace Discoveries
                     var extension = thingDef.GetModExtension<UnlockResearchOnDiscovery>();
                     if (extension.researchProject == research)
                     {
+                        if (IsThingExcludedFromDiscovery(thingDef))
+                        {
+                            return false;
+                        }
                         return true;
                     }
                 }
             }
             return false;
+        }
+
+        private static bool IsThingExcludedFromDiscovery(ThingDef thingDef)
+        {
+            if (thingDef.HasModExtension<ExcludeFromDiscoveries>())
+            {
+                return true;
+            }
+            if (thingDef.race != null && thingDef.race.Humanlike)
+            {
+                if (!DiscoveriesMod.settings.enableDiscoveryForPawns)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (!DiscoveriesMod.settings.enableDiscoveryForThings)
+                {
+                    return true;
+                }
+            }
+            if (DiscoveriesMod.settings.excludeResearched)
+            {
+                if (IsThingResearched(thingDef))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool IsThingResearched(ThingDef def)
+        {
+            if (def.researchPrerequisites != null && def.researchPrerequisites.Count > 0)
+            {
+                foreach (ResearchProjectDef research in def.researchPrerequisites)
+                {
+                    if (!research.IsFinished)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+        public static void UnlockResearchForThing(Thing thing, bool showMessage = true)
+        {
+            if (!thing.def.HasModExtension<UnlockResearchOnDiscovery>())
+            {
+                return;
+            }
+            var extension = thing.def.GetModExtension<UnlockResearchOnDiscovery>();
+            if (extension.researchProject == null || IsResearchDiscovered(extension.researchProject))
+            {
+                return;
+            }
+            MarkResearchDiscovered(extension.researchProject);
+            if (showMessage)
+            {
+                DefsOf.Disc_ResearchUnlock.PlayOneShotOnCamera();
+                string message = ShouldObscureResearch(extension.researchProject) ? "Disc_ResearchUnlockedFuture".Translate() : "Disc_ResearchUnlocked".Translate(extension.researchProject.LabelCap);
+                Find.WindowStack.Add(new Window_Message(message));
+            }
+        }
+        public static bool ShouldExcludeThing(Thing thing)
+        {
+            if (thing is Blueprint || thing is Frame)
+            {
+                return true;
+            }
+            if (thing.def.HasModExtension<ExcludeFromDiscoveries>())
+            {
+                return true;
+            }
+            if (thing is Pawn)
+            {
+                if (!DiscoveriesMod.settings.enableDiscoveryForPawns)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (!DiscoveriesMod.settings.enableDiscoveryForThings)
+                {
+                    return true;
+                }
+            }
+            if (DiscoveriesMod.settings.excludeResearched && IsThingResearched(thing.def))
+            {
+                return true;
+            }
+            return false;
+        }
+        public static bool ShouldObscureResearch(ResearchProjectDef research)
+        {
+            if (DiscoveriesMod.settings.obscureUnavailableResearch && !research.PrerequisitesCompleted)
+            {
+                return true;
+            }
+            if (DiscoveriesMod.settings.obscureHigherTechLevel && research.techLevel > Faction.OfPlayer.def.techLevel)
+            {
+                return true;
+            }
+            return false;
+        }
+        public static Thing GetDiscoveryThing(Thing thing)
+        {
+            if (thing is Corpse corpse && corpse.InnerPawn != null)
+            {
+                return corpse.InnerPawn;
+            }
+            return thing;
         }
         public static void ExposeData()
         {
@@ -107,6 +229,11 @@ namespace Discoveries
             Scribe_Collections.Look(ref discoveredXenotypeDefNames, "discoveredXenotypeDefNames", LookMode.Value);
             Scribe_Collections.Look(ref discoveredCustomXenotypes, "discoveredCustomXenotypes", LookMode.Value);
             Scribe_Collections.Look(ref discoveredResearchProjectDefNames, "discoveredResearchProjectDefNames", LookMode.Value);
+        }
+
+        public static bool IsResearchLockedByDiscovery(ResearchProjectDef research)
+        {
+            return HasDiscoveryRequirement(research) && !IsResearchDiscovered(research);
         }
 
         public static void Reset()

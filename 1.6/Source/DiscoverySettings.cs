@@ -10,6 +10,9 @@ namespace Discoveries
         public bool excludeStartingAnimals = true;
         public bool enableDiscoveryForThings = true;
         public bool enableDiscoveryForPawns = true;
+        public bool obscureUnavailableResearch = true;
+        public bool obscureHigherTechLevel = false;
+        public bool displayOnlyUnlocks = false;
         public bool saveToClient = false;
         public override void ExposeData()
         {
@@ -21,6 +24,9 @@ namespace Discoveries
             Scribe_Values.Look(ref excludeStartingAnimals, "excludeStartingAnimals", true);
             Scribe_Values.Look(ref enableDiscoveryForThings, "enableDiscoveryForThings", true);
             Scribe_Values.Look(ref enableDiscoveryForPawns, "enableDiscoveryForPawns", true);
+            Scribe_Values.Look(ref obscureUnavailableResearch, "obscureUnavailableResearch", true);
+            Scribe_Values.Look(ref obscureHigherTechLevel, "obscureHigherTechLevel", false);
+            Scribe_Values.Look(ref displayOnlyUnlocks, "displayOnlyUnlocks", false);
             Scribe_Values.Look(ref saveToClient, "saveToClient", false);
             if (saveToClient)
             {

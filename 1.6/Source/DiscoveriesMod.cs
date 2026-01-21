@@ -24,6 +24,9 @@ namespace Discoveries
             listing.CheckboxLabeled("Disc_ExcludeStartingScenario".Translate(), ref settings.excludeStartingScenario);
             listing.CheckboxLabeled("Disc_ExcludeStartingXenotypes".Translate(), ref settings.excludeStartingXenotypes);
             listing.CheckboxLabeled("Disc_ExcludeStartingAnimals".Translate(), ref settings.excludeStartingAnimals);
+            listing.CheckboxLabeled("Disc_ObscureUnavailableResearch".Translate(), ref settings.obscureUnavailableResearch);
+            listing.CheckboxLabeled("Disc_ObscureHigherTechLevel".Translate(), ref settings.obscureHigherTechLevel);
+            listing.CheckboxLabeled("Disc_DisplayOnlyUnlocks".Translate(), ref settings.displayOnlyUnlocks);
             listing.CheckboxLabeled("Disc_SaveToClient".Translate(), ref settings.saveToClient);
             listing.Gap();
 

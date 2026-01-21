@@ -1,7 +1,6 @@
 using RimWorld;
 using UnityEngine;
 using Verse;
-using Verse.Sound;
 namespace Discoveries
 {
     [HotSwappable]
@@ -105,21 +104,7 @@ namespace Discoveries
         {
             base.Close(doCloseSound);
             Find.Selector.Select(thing);
-            UnlockResearchForThing(thing);
-        }
-
-        private static void UnlockResearchForThing(Thing thing)
-        {
-            if (thing.def.HasModExtension<UnlockResearchOnDiscovery>())
-            {
-                var extension = thing.def.GetModExtension<UnlockResearchOnDiscovery>();
-                if (extension.researchProject != null && !DiscoveryTracker.IsResearchDiscovered(extension.researchProject))
-                {
-                    DiscoveryTracker.MarkResearchDiscovered(extension.researchProject);
-                    DefsOf.Disc_ResearchUnlock.PlayOneShotOnCamera();
-                    Find.WindowStack.Add(new Window_Message("Disc_ResearchUnlocked".Translate(extension.researchProject.LabelCap)));
-                }
-            }
+            DiscoveryTracker.UnlockResearchForThing(thing);
         }
     }
 }

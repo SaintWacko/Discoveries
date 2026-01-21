@@ -11,9 +11,13 @@
   <Disc_ExcludeStartingAnimals>Exclude starting colony animals from discovery</Disc_ExcludeStartingAnimals>
   <Disc_EnableDiscoveryForThings>Enable discovery for things</Disc_EnableDiscoveryForThings>
   <Disc_EnableDiscoveryForPawns>Enable discovery for pawns</Disc_EnableDiscoveryForPawns>
+  <Disc_ObscureUnavailableResearch>Obscure names of discovered projects not yet available to the player</Disc_ObscureUnavailableResearch>
+  <Disc_ObscureHigherTechLevel>Obscure names of projects not in your tech level</Disc_ObscureHigherTechLevel>
+  <Disc_DisplayOnlyUnlocks>Display discoveries only if they are tied to unlocks</Disc_DisplayOnlyUnlocks>
   <Disc_SaveToClient>Save discoveries to client instead of save file</Disc_SaveToClient>
   <Disc_ResetSaveFile>Reset all discoveries on this save file</Disc_ResetSaveFile>
   <Disc_ResetClient>Reset all discoveries saved to client</Disc_ResetClient>
   <Disc_ResearchNotDiscovered>A relevant thing or creature has not been discovered yet.</Disc_ResearchNotDiscovered>
   <Disc_ResearchUnlocked>{0} research project is now available!</Disc_ResearchUnlocked>
+  <Disc_ResearchUnlockedFuture>This discovery has unlocked access to a future research project.</Disc_ResearchUnlockedFuture>
 </LanguageData>

@@ -12,58 +12,20 @@ namespace Discoveries
             if (!DiscoveriesMod.settings.discoveryEnabled) return;
             if (obj is Thing thing && __instance.SingleSelectedThing == thing)
             {
-                if (DiscoveryTracker.IsDiscovered(thing)) return;
-                if (ShouldExclude(thing)) return;
+                Thing discoveryThing = DiscoveryTracker.GetDiscoveryThing(thing);
+                if (DiscoveryTracker.IsDiscovered(discoveryThing)) return;
+                if (DiscoveryTracker.ShouldExcludeThing(discoveryThing)) return;
+                if (DiscoveriesMod.settings.displayOnlyUnlocks && !HasUnlock(discoveryThing)) return;
                 __instance.ClearSelection();
-                DiscoveryTracker.MarkDiscovered(thing);
+                DiscoveryTracker.MarkDiscovered(discoveryThing);
                 DefsOf.Disc_Discovery.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Window_Discovery(thing));
+                Find.WindowStack.Add(new Window_Discovery(discoveryThing));
             }
         }
-        private static bool ShouldExclude(Thing thing)
+        private static bool HasUnlock(Thing thing)
         {
-            if (thing is Blueprint || thing is Frame)
+            if (thing.def.HasModExtension<UnlockResearchOnDiscovery>())
             {
-                return true;
-            }
-            if (thing.def.HasModExtension<ExcludeFromDiscoveries>())
-            {
-                return true;
-            }
-            if (thing is Pawn)
-            {
-                if (!DiscoveriesMod.settings.enableDiscoveryForPawns)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                if (!DiscoveriesMod.settings.enableDiscoveryForThings)
-                {
-                    return true;
-                }
-            }
-            if (DiscoveriesMod.settings.excludeResearched)
-            {
-                if (IsResearched(thing.def))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        private static bool IsResearched(ThingDef def)
-        {
-            if (def.researchPrerequisites != null && def.researchPrerequisites.Count > 0)
-            {
-                foreach (ResearchProjectDef research in def.researchPrerequisites)
-                {
-                    if (!research.IsFinished)
-                    {
-                        return false;
-                    }
-                }
                 return true;
             }
             return false;

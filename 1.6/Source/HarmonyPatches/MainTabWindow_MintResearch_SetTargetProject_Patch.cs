@@ -19,7 +19,7 @@ namespace Discoveries
 
         public static bool Prefix(ResearchProjectDef proj)
         {
-            if (DiscoveryTracker.HasDiscoveryRequirement(proj) && !DiscoveryTracker.IsResearchDiscovered(proj))
+            if (DiscoveryTracker.IsResearchLockedByDiscovery(proj))
             {
                 Messages.Message("Disc_ResearchNotDiscovered".Translate(), MessageTypeDefOf.CautionInput);
                 return false;

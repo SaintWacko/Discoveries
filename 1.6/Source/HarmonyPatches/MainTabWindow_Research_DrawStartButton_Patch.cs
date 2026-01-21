@@ -32,7 +32,7 @@ namespace Discoveries
         }
         public static void AddDiscoveryLockedReason(ResearchProjectDef researchProject, List<string> ___lockedReasons)
         {
-            if (DiscoveryTracker.HasDiscoveryRequirement(researchProject) && !DiscoveryTracker.IsResearchDiscovered(researchProject))
+            if (DiscoveryTracker.IsResearchLockedByDiscovery(researchProject))
             {
                 ___lockedReasons.Add("Disc_ResearchNotDiscovered".Translate());
             }

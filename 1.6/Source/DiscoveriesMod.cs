@@ -13,6 +13,12 @@ namespace Discoveries
         }
         public override string SettingsCategory() => Content.Name;
 
+        public override void WriteSettings()
+        {
+            base.WriteSettings();
+            DiscoveryTracker.BuildDiscoveryCache();
+        }
+
         public override void DoSettingsWindowContents(Rect inRect)
         {
             Listing_Standard listing = new Listing_Standard();

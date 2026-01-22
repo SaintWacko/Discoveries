@@ -81,5 +81,10 @@ namespace Discoveries
             }
             GUI.color = Color.white;
         }
+        public override void Close(bool doCloseSound = true)
+        {
+            base.Close(doCloseSound);
+            DiscoveryQueue.TryShowNext();
+        }
     }
 }

@@ -12,23 +12,43 @@ namespace Discoveries
             if (!DiscoveriesMod.settings.discoveryEnabled) return;
             if (obj is Thing thing && __instance.SingleSelectedThing == thing)
             {
+                bool anyDiscovery = false;
                 Thing discoveryThing = DiscoveryTracker.GetDiscoveryThing(thing);
-                if (DiscoveryTracker.IsDiscovered(discoveryThing)) return;
-                if (DiscoveryTracker.ShouldExcludeThing(discoveryThing)) return;
-                if (DiscoveriesMod.settings.displayOnlyUnlocks && !HasUnlock(discoveryThing)) return;
-                __instance.ClearSelection();
-                DiscoveryTracker.MarkDiscovered(discoveryThing);
-                DefsOf.Disc_Discovery.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Window_Discovery(discoveryThing));
+
+                if (!DiscoveryTracker.IsDiscovered(discoveryThing) && !DiscoveryTracker.ShouldExcludeThing(discoveryThing))
+                {
+                    Def targetDef = discoveryThing.def;
+                    if (discoveryThing is Pawn p && p.genes?.Xenotype != null) targetDef = p.genes.Xenotype;
+                    if (!DiscoveriesMod.settings.displayOnlyUnlocks || targetDef.HasModExtension<UnlockResearchOnDiscovery>())
+                    {
+                        DiscoveryTracker.MarkDiscovered(discoveryThing);
+                        DiscoveryQueue.EnqueueDiscovery(targetDef, discoveryThing);
+                        anyDiscovery = true;
+                    }
+                }
+
+                if (discoveryThing.Faction != null && discoveryThing.Faction.def != null)
+                {
+                    if (!DiscoveryTracker.IsDiscovered(discoveryThing.Faction.def))
+                    {
+                        if (!discoveryThing.Faction.IsPlayer && !discoveryThing.Faction.def.HasModExtension<ExcludeFromDiscoveries>())
+                        {
+                            if (!DiscoveriesMod.settings.displayOnlyUnlocks || discoveryThing.Faction.def.HasModExtension<UnlockResearchOnDiscovery>())
+                            {
+                                DiscoveryTracker.MarkDiscovered(discoveryThing.Faction.def);
+                                DiscoveryQueue.EnqueueDiscovery(discoveryThing.Faction.def, discoveryThing);
+                                anyDiscovery = true;
+                            }
+                        }
+                    }
+                }
+
+                if (anyDiscovery)
+                {
+                    __instance.ClearSelection();
+                    DiscoveryQueue.TryShowNext();
+                }
             }
-        }
-        private static bool HasUnlock(Thing thing)
-        {
-            if (thing.def.HasModExtension<UnlockResearchOnDiscovery>())
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

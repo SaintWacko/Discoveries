@@ -8,4 +8,37 @@
       </li>
     </value>
   </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Apparel_PowerArmorHelmet"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProjects>
+          <li>PoweredArmor</li>
+          <li>ChargedShot</li>
+        </researchProjects>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/FactionDef[defName="Empire"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Gunlink</researchProject>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/XenotypeDef[defName="Waster"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Archogenetics</researchProject>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/FactionDef[defName="Pirate"]</xpath>
+    <value>
+      <li Class="Discoveries.ExcludeFromDiscoveries" />
+    </value>
+  </Operation>
 </Patch>

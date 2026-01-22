@@ -5,12 +5,59 @@ using Verse.Sound;
 namespace Discoveries
 {
     [HotSwappable]
+    [StaticConstructorOnStartup]
     public static class DiscoveryTracker
     {
         public static HashSet<string> discoveredThingDefNames = new HashSet<string>();
         public static HashSet<string> discoveredXenotypeDefNames = new HashSet<string>();
         public static HashSet<string> discoveredCustomXenotypes = new HashSet<string>();
         public static HashSet<string> discoveredResearchProjectDefNames = new HashSet<string>();
+        public static HashSet<string> discoveredFactionDefNames = new HashSet<string>();
+        private static HashSet<ResearchProjectDef> lockedResearchCache = new HashSet<ResearchProjectDef>();
+        static DiscoveryTracker()
+        {
+            BuildDiscoveryCache();
+        }
+        public static void BuildDiscoveryCache()
+        {
+            lockedResearchCache.Clear();
+            foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
+            {
+                if (thingDef.HasModExtension<UnlockResearchOnDiscovery>())
+                {
+                    if (IsThingExcludedFromDiscovery(thingDef)) continue;
+                    var extension = thingDef.GetModExtension<UnlockResearchOnDiscovery>();
+                    foreach (var project in extension.GetProjects())
+                    {
+                        if (project != null) lockedResearchCache.Add(project);
+                    }
+                }
+            }
+            foreach (var factionDef in DefDatabase<FactionDef>.AllDefs)
+            {
+                if (factionDef.HasModExtension<UnlockResearchOnDiscovery>())
+                {
+                    if (factionDef.HasModExtension<ExcludeFromDiscoveries>()) continue;
+                    var extension = factionDef.GetModExtension<UnlockResearchOnDiscovery>();
+                    foreach (var project in extension.GetProjects())
+                    {
+                        if (project != null) lockedResearchCache.Add(project);
+                    }
+                }
+            }
+            foreach (var xenoDef in DefDatabase<XenotypeDef>.AllDefs)
+            {
+                if (xenoDef.HasModExtension<UnlockResearchOnDiscovery>())
+                {
+                    if (xenoDef.HasModExtension<ExcludeFromDiscoveries>()) continue;
+                    var extension = xenoDef.GetModExtension<UnlockResearchOnDiscovery>();
+                    foreach (var project in extension.GetProjects())
+                    {
+                        if (project != null) lockedResearchCache.Add(project);
+                    }
+                }
+            }
+        }
         public static bool IsDiscovered(Thing thing)
         {
             if (thing is Pawn pawn && pawn.RaceProps.Humanlike)
@@ -21,6 +68,10 @@ namespace Discoveries
             {
                 return discoveredThingDefNames.Contains(thing.def.defName);
             }
+        }
+        public static bool IsDiscovered(FactionDef factionDef)
+        {
+            return discoveredFactionDefNames.Contains(factionDef.defName);
         }
         private static bool IsXenotypeDiscovered(Pawn pawn)
         {
@@ -45,6 +96,10 @@ namespace Discoveries
             {
                 discoveredThingDefNames.Add(thing.def.defName);
             }
+        }
+        public static void MarkDiscovered(FactionDef factionDef)
+        {
+            discoveredFactionDefNames.Add(factionDef.defName);
         }
         private static void MarkXenotypeDiscovered(Pawn pawn)
         {
@@ -91,22 +146,7 @@ namespace Discoveries
         }
         public static bool HasDiscoveryRequirement(ResearchProjectDef research)
         {
-            foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
-            {
-                if (thingDef.HasModExtension<UnlockResearchOnDiscovery>())
-                {
-                    var extension = thingDef.GetModExtension<UnlockResearchOnDiscovery>();
-                    if (extension.researchProject == research)
-                    {
-                        if (IsThingExcludedFromDiscovery(thingDef))
-                        {
-                            return false;
-                        }
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return lockedResearchCache.Contains(research);
         }
 
         private static bool IsThingExcludedFromDiscovery(ThingDef thingDef)
@@ -161,16 +201,33 @@ namespace Discoveries
                 return;
             }
             var extension = thing.def.GetModExtension<UnlockResearchOnDiscovery>();
-            if (extension.researchProject == null || IsResearchDiscovered(extension.researchProject))
+            foreach (var project in extension.GetProjects())
             {
-                return;
+                if (project == null || IsResearchDiscovered(project))
+                {
+                    continue;
+                }
+                MarkResearchDiscovered(project);
+                if (showMessage)
+                {
+                    DefsOf.Disc_ResearchUnlock.PlayOneShotOnCamera();
+                    string message = ShouldObscureResearch(project) ? "Disc_ResearchUnlockedFuture".Translate() : "Disc_ResearchUnlocked".Translate(project.LabelCap);
+                    Find.WindowStack.Add(new Window_Message(message));
+                }
             }
-            MarkResearchDiscovered(extension.researchProject);
-            if (showMessage)
+        }
+        public static void CheckAndQueueUnlocksFor(Def discoveredDef)
+        {
+            if (!discoveredDef.HasModExtension<UnlockResearchOnDiscovery>()) return;
+            var extension = discoveredDef.GetModExtension<UnlockResearchOnDiscovery>();
+            foreach (var project in extension.GetProjects())
             {
-                DefsOf.Disc_ResearchUnlock.PlayOneShotOnCamera();
-                string message = ShouldObscureResearch(extension.researchProject) ? "Disc_ResearchUnlockedFuture".Translate() : "Disc_ResearchUnlocked".Translate(extension.researchProject.LabelCap);
-                Find.WindowStack.Add(new Window_Message(message));
+                if (!IsResearchDiscovered(project))
+                {
+                    MarkResearchDiscovered(project);
+                    string msg = ShouldObscureResearch(project) ? "Disc_ResearchUnlockedFuture".Translate() : "Disc_ResearchUnlocked".Translate(project.LabelCap);
+                    DiscoveryQueue.EnqueueMessage(msg);
+                }
             }
         }
         public static bool ShouldExcludeThing(Thing thing)
@@ -229,6 +286,7 @@ namespace Discoveries
             Scribe_Collections.Look(ref discoveredXenotypeDefNames, "discoveredXenotypeDefNames", LookMode.Value);
             Scribe_Collections.Look(ref discoveredCustomXenotypes, "discoveredCustomXenotypes", LookMode.Value);
             Scribe_Collections.Look(ref discoveredResearchProjectDefNames, "discoveredResearchProjectDefNames", LookMode.Value);
+            Scribe_Collections.Look(ref discoveredFactionDefNames, "discoveredFactionDefNames", LookMode.Value);
         }
 
         public static bool IsResearchLockedByDiscovery(ResearchProjectDef research)
@@ -242,6 +300,7 @@ namespace Discoveries
             discoveredXenotypeDefNames.Clear();
             discoveredCustomXenotypes.Clear();
             discoveredResearchProjectDefNames.Clear();
+            discoveredFactionDefNames.Clear();
         }
     }
 }

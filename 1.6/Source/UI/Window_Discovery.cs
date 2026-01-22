@@ -6,14 +6,20 @@ namespace Discoveries
     [HotSwappable]
     public class Window_Discovery : Window
     {
-        private Thing thing;
+        private Def def;
+        private Thing thingContext;
         private Pawn pawn;
         private bool isHumanlike;
-        public Window_Discovery(Thing thing)
+        private DefType defType;
+        public Window_Discovery(Def def, Thing thingContext = null)
         {
-            this.thing = thing;
-            this.pawn = thing as Pawn;
+            this.def = def;
+            this.thingContext = thingContext;
+            this.pawn = thingContext as Pawn;
             isHumanlike = pawn != null && pawn.RaceProps.Humanlike && pawn.genes != null;
+            if (def is FactionDef) defType = DefType.Faction;
+            else if (def is XenotypeDef) defType = DefType.Xenotype;
+            else defType = DefType.Thing;
             forcePause = true;
             absorbInputAroundWindow = true;
             closeOnClickedOutside = false;
@@ -41,26 +47,33 @@ namespace Discoveries
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             Rect iconRect = new Rect(inRect.width / 2f - iconSize / 2f, titleRect.yMax + iconOffset, iconSize, iconSize);
-            if (isHumanlike)
+            if (defType == DefType.Xenotype)
             {
                 GUI.color = XenotypeDef.IconColor;
-                GUI.DrawTexture(iconRect, pawn.genes.XenotypeIcon);
+                GUI.DrawTexture(iconRect, (def as XenotypeDef).Icon);
                 GUI.color = Color.white;
+            }
+            else if (defType == DefType.Faction)
+            {
+                GUI.DrawTexture(iconRect, (def as FactionDef).FactionIcon);
             }
             else
             {
-                Widgets.DefIcon(iconRect, thing.def);
+                Widgets.DefIcon(iconRect, def as ThingDef);
             }
-            Widgets.InfoCardButton(iconRect.xMax, iconRect.y, thing);
+            if (thingContext != null)
+            {
+                Widgets.InfoCardButton(iconRect.xMax, iconRect.y, thingContext);
+            }
             Text.Anchor = TextAnchor.UpperCenter;
             Text.Font = GameFont.Medium;
-            string label = isHumanlike ? GetXenotypeLabel() : thing.def.LabelCap;
+            string label = GetLabel();
             Rect labelRect = new Rect(inRect.width / 2f - labelWidth / 2f, iconRect.yMax + labelOffset, labelWidth, labelHeight);
             Widgets.Label(labelRect, label);
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
             Rect descRect = new Rect(inRect.width / 2f - descWidth / 2f, labelRect.yMax + descOffset, descWidth, descHeight);
-            string description = isHumanlike ? GetXenotypeDescription() : thing.def.description;
+            string description = GetDescription();
             Widgets.LabelScrollable(descRect, description, ref scrollPosition);
             if (isHumanlike)
             {
@@ -76,35 +89,48 @@ namespace Discoveries
         }
 
         private static Vector2 scrollPosition = Vector2.zero;
-        private string GetXenotypeLabel()
+        private string GetLabel()
         {
-            if (pawn.genes.Xenotype != null)
+            if (defType == DefType.Xenotype)
             {
-                return pawn.genes.Xenotype.LabelCap;
+                return (def as XenotypeDef).LabelCap;
             }
-            else if (!pawn.genes.xenotypeName.NullOrEmpty())
+            else if (defType == DefType.Faction)
             {
-                return pawn.genes.xenotypeName;
+                return (def as FactionDef).LabelCap;
             }
-            return pawn.LabelCap;
+            else
+            {
+                return def.LabelCap;
+            }
         }
-        private string GetXenotypeDescription()
+        private string GetDescription()
         {
-            if (pawn.genes.Xenotype != null)
+            if (defType == DefType.Xenotype)
             {
-                return pawn.genes.Xenotype.description;
+                return (def as XenotypeDef).description;
             }
-            else if (!pawn.genes.xenotypeName.NullOrEmpty())
+            else if (defType == DefType.Faction)
             {
-                return "Disc_CustomXenotype".Translate(pawn.genes.xenotypeName);
+                return (def as FactionDef).Description;
             }
-            return pawn.def.description;
+            else
+            {
+                return def.description;
+            }
         }
         public override void Close(bool doCloseSound = true)
         {
             base.Close(doCloseSound);
-            Find.Selector.Select(thing);
-            DiscoveryTracker.UnlockResearchForThing(thing);
+            DiscoveryTracker.CheckAndQueueUnlocksFor(def);
+            if (thingContext != null) Find.Selector.Select(thingContext);
+            DiscoveryQueue.TryShowNext();
         }
+    }
+    internal enum DefType
+    {
+        Thing,
+        Xenotype,
+        Faction
     }
 }

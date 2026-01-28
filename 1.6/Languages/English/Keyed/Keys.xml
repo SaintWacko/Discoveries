@@ -18,6 +18,6 @@
   <Disc_ResetSaveFile>Reset all discoveries on this save file</Disc_ResetSaveFile>
   <Disc_ResetClient>Reset all discoveries saved to client</Disc_ResetClient>
   <Disc_ResearchNotDiscovered>A relevant thing or creature has not been discovered yet.</Disc_ResearchNotDiscovered>
-  <Disc_ResearchUnlocked>{0} research project is now available!</Disc_ResearchUnlocked>
+  <Disc_ResearchUnlocked>Due to this discovery, {0} is now available to research.</Disc_ResearchUnlocked>
   <Disc_ResearchUnlockedFuture>This discovery has unlocked access to a future research project.</Disc_ResearchUnlockedFuture>
 </LanguageData>

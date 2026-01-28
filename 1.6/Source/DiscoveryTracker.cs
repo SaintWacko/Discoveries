@@ -24,7 +24,6 @@ namespace Discoveries
             lockedResearchCache.Clear();
             foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
             {
-                if (IsThingExcludedFromDiscovery(thingDef)) continue;
                 foreach (var extension in thingDef.modExtensions?.OfType<UnlockResearchOnDiscovery>() ?? Enumerable.Empty<UnlockResearchOnDiscovery>())
                 {
                     foreach (var project in extension.GetProjects())
@@ -142,39 +141,10 @@ namespace Discoveries
         {
             discoveredResearchProjectDefNames.Add(research.defName);
         }
+
         public static bool HasDiscoveryRequirement(ResearchProjectDef research)
         {
             return lockedResearchCache.Contains(research);
-        }
-
-        private static bool IsThingExcludedFromDiscovery(ThingDef thingDef)
-        {
-            if (thingDef.HasModExtension<ExcludeFromDiscoveries>())
-            {
-                return true;
-            }
-            if (thingDef.race != null && thingDef.race.Humanlike)
-            {
-                if (!DiscoveriesMod.settings.enableDiscoveryForPawns)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                if (!DiscoveriesMod.settings.enableDiscoveryForThings)
-                {
-                    return true;
-                }
-            }
-            if (DiscoveriesMod.settings.excludeResearched)
-            {
-                if (IsThingResearched(thingDef))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         private static bool IsThingResearched(ThingDef def)

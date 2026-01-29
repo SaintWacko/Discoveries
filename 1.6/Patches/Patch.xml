@@ -20,20 +20,22 @@
   </Operation>
 
 
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Door"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Autodoors</researchProject>
+      </li>
+    </value>
+  </Operation>
 
+SecurityDoor
 
 <!-- EXAMPLES -->
 
 
+
   <!-- <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/FactionDef[defName="Empire"]</xpath>
-    <value>
-      <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>Gunlink</researchProject>
-      </li>
-    </value>
-  </Operation>
-  <Operation Class="PatchOperationAddModExtension">
     <xpath>Defs/XenotypeDef[defName="Waster"]</xpath>
     <value>
       <li Class="Discoveries.UnlockResearchOnDiscovery">
@@ -46,8 +48,8 @@
     <value>
       <li Class="Discoveries.ExcludeFromDiscoveries" />
     </value>
-  </Operation> -->
+  </Operation>
 
-
+ -->
 
 </Patch>

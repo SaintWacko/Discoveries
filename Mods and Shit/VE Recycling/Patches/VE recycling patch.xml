@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>          
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Wastepack"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>VRecyclingE_BasicRecycling</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="VRecyclingE_RecyclingWorkbench"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>VRecyclingE_ComplexRecycling</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="VRecyclingE_ElectricRecyclingWorkbench"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>VRecyclingE_ComplexRecycling</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+
+</Patch>

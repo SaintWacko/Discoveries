@@ -3,7 +3,7 @@
     <name>Discoveries</name>
     <author>ferny</author>
     <packageId>ferny.Discoveries</packageId>
-    <description></description>
+    <description>Discover and learn about the things in your world.</description>
     <supportedVersions>
         <li>1.6</li>
     </supportedVersions>
@@ -18,5 +18,11 @@
         <li>vanillaexpanded.helixiengas</li>
         <li>dankpyon.medieval.overhaul</li>
         <li>oskarpotocki.vfe.pirates</li>
+        <li>vanillaracesexpanded.android</li>
+        <li>biomesteam.biomesfossils</li>
+        <li>nightmare.aquariums</li>
+        <li>trickity.samurai.faction</li>
+        <li>ninagoblin.enhancedvatlearning</li>
+        <li>vanillaexpanded.recycling</li>
     </loadAfter>
 </ModMetaData>

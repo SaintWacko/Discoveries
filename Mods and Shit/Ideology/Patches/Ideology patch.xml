@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>          
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="BiosculpterPod"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Bioregeneration</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>

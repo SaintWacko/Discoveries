@@ -2,8 +2,16 @@
   <v1.6>
     <li>/</li>
     <li>1.6</li>
+    <li IfModActive="ludeon.rimworld.ideology">Mods and Shit/Ideology</li>
+    <li IfModActive="ludeon.rimworld.anomaly">Mods and Shit/Anomaly</li>
     <li IfModActive="vanillaexpanded.helixiengas">Mods and Shit/VE Helixien</li>
     <li IfModActive="dankpyon.medieval.overhaul">Mods and Shit/Medieval Overhaul</li>
     <li IfModActive="oskarpotocki.vfe.pirates">Mods and Shit/VFE Pirates</li>
+    <li IfModActive="vanillaracesexpanded.android">Mods and Shit/VRE Androids</li>
+    <li IfModActive="biomesteam.biomesfossils">Mods and Shit/Biomes Fossils</li>
+    <li IfModActive="nightmare.aquariums">Mods and Shit/Aquariums</li>
+    <li IfModActive="trickity.samurai.faction">Mods and Shit/T Samurai Faction</li>
+    <li IfModActive="ninagoblin.enhancedvatlearning">Mods and Shit/Enhanced Vat Learning</li>
+    <li IfModActive="vanillaexpanded.recycling">Mods and Shit/VE Recycling</li>
   </v1.6>
 </loadFolders>

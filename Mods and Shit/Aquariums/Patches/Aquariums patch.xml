@@ -1,56 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>          
 
+<!-- tied to the fish tank -->
   <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEP_WarcasketFoundry"]</xpath>
+    <xpath>Defs/ThingDef[defName="Aqua_FishTank_Linked"]</xpath>
     <value>
       <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>VFEP_SpecialisedWarcaskets</researchProject>
-      </li>
-    </value>
-  </Operation>
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEP_WarcasketFoundry"]</xpath>
-    <value>
-      <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>VFEP_AdvancedWarcaskets</researchProject>
-      </li>
-    </value>
-  </Operation>
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEP_WarcasketFoundry"]</xpath>
-    <value>
-      <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>VFEP_SpacerWarcaskets</researchProject>
-      </li>
-    </value>
-  </Operation>
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEP_WarcasketFoundry"]</xpath>
-    <value>
-      <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>VFEP_WarcasketRemoval</researchProject>
-      </li>
-    </value>
-  </Operation>
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEP_WarcasketFoundry"]</xpath>
-    <value>
-      <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>VFEP_WarcasketWeaponry</researchProject>
-      </li>
-    </value>
-  </Operation>
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEP_WarcasketFoundry"]</xpath>
-    <value>
-      <li Class="Discoveries.UnlockResearchOnDiscovery">
-        <researchProject>VFEP_SpacerWarcasketWeaponry</researchProject>
+        <researchProject>Aqua_TemperatureControl</researchProject>
       </li>
     </value>
   </Operation>
 
 
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Aqua_FishTank_Linked"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Aqua_NutritionControl</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Aqua_FishTank_Linked"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Aqua_Filter</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+
+
+
+<!-- tied to the temperature control -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Aqua_CompactTemperatureControl"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Aqua_AdvancedTemperatureControl</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+
+<!-- tied to the nutrition control -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Aqua_CompactNutritionControl"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Aqua_AdvancedNutritionControl</researchProject>
+      </li>
+    </value>
+  </Operation>
+
+
+<!-- tied to the filter control -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Aqua_Filter"]</xpath>
+    <value>
+      <li Class="Discoveries.UnlockResearchOnDiscovery">
+        <researchProject>Aqua_AutoCleaner</researchProject>
+      </li>
+    </value>
+  </Operation>
 
 
 

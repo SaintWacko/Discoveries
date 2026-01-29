@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>          
+
+<Operation Class="PatchOperationAddModExtension">
+	<xpath>Defs/FactionDef[defName="RBSFE_TribeFae"]</xpath>
+	<value>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>RBSFE_FaeCraftables</researchProject></li>
+	</value>
+</Operation>
+
+</Patch>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>          
+
+<!-- Lock TSF research behind faction discovery: SamuraiClan -->
+<Operation Class="PatchOperationAddModExtension">
+	<xpath>Defs/FactionDef[defName="TSF_SamuraiClan"]</xpath>
+	<value>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_BlackPowder</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Matchlock</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Hand_Mortar</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Yumi</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_NinjaGear</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_AshigaruArmor</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_SamuraiArmor</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Naginata</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Katana</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_SakeBrewing</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Calligraphy</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_CherryBlossomSowing</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Bushido_Code</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_OniGear</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Spirit</researchProject></li>
+	</value>
+</Operation>
+
+<!-- Lock TSF research behind faction discovery: SamuraiClanSavage -->
+<Operation Class="PatchOperationAddModExtension">
+	<xpath>Defs/FactionDef[defName="TSF_SamuraiClanSavage"]</xpath>
+	<value>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_BlackPowder</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Matchlock</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Hand_Mortar</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Yumi</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_NinjaGear</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_AshigaruArmor</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_SamuraiArmor</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Naginata</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Katana</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_SakeBrewing</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Calligraphy</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_CherryBlossomSowing</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Bushido_Code</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_OniGear</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Spirit</researchProject></li>
+	</value>
+</Operation>
+
+<!-- Lock TSF research behind faction discovery: SamuraiClanShinobi -->
+<Operation Class="PatchOperationAddModExtension">
+	<xpath>Defs/FactionDef[defName="TSF_SamuraiClanShinobi"]</xpath>
+	<value>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_BlackPowder</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Matchlock</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Hand_Mortar</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Yumi</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_NinjaGear</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_AshigaruArmor</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_SamuraiArmor</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Naginata</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Katana</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_SakeBrewing</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Calligraphy</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_CherryBlossomSowing</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Bushido_Code</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_OniGear</researchProject></li>
+		<li Class="Discoveries.UnlockResearchOnDiscovery"><researchProject>TSF_Spirit</researchProject></li>
+	</value>
+</Operation>
+
+</Patch>

@@ -26,7 +26,6 @@ namespace Discoveries
             listing.CheckboxLabeled("Disc_EnableDiscoverySystem".Translate(), ref settings.discoveryEnabled);
             listing.CheckboxLabeled("Disc_EnableDiscoveryForThings".Translate(), ref settings.enableDiscoveryForThings);
             listing.CheckboxLabeled("Disc_EnableDiscoveryForPawns".Translate(), ref settings.enableDiscoveryForPawns);
-            listing.CheckboxLabeled("Disc_ExcludeResearched".Translate(), ref settings.excludeResearched);
             listing.CheckboxLabeled("Disc_ExcludeStartingScenario".Translate(), ref settings.excludeStartingScenario);
             listing.CheckboxLabeled("Disc_ExcludeStartingXenotypes".Translate(), ref settings.excludeStartingXenotypes);
             listing.CheckboxLabeled("Disc_ExcludeStartingAnimals".Translate(), ref settings.excludeStartingAnimals);

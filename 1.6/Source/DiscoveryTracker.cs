@@ -17,6 +17,7 @@ namespace Discoveries
         private static HashSet<ResearchProjectDef> lockedResearchCache = new HashSet<ResearchProjectDef>();
         static DiscoveryTracker()
         {
+            EnsureNotNull();
             BuildDiscoveryCache();
         }
         public static void BuildDiscoveryCache()
@@ -57,6 +58,10 @@ namespace Discoveries
         }
         public static bool IsDiscovered(Thing thing)
         {
+            if (discoveredThingDefNames is null)
+            {
+                EnsureNotNull();
+            }
             if (thing is Pawn pawn && pawn.RaceProps.Humanlike)
             {
                 return IsXenotypeDiscovered(pawn);
@@ -146,22 +151,6 @@ namespace Discoveries
         {
             return lockedResearchCache.Contains(research);
         }
-
-        private static bool IsThingResearched(ThingDef def)
-        {
-            if (def.researchPrerequisites != null && def.researchPrerequisites.Count > 0)
-            {
-                foreach (ResearchProjectDef research in def.researchPrerequisites)
-                {
-                    if (!research.IsFinished)
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
         public static void UnlockResearchForThing(Thing thing, bool showMessage = true)
         {
             foreach (var extension in thing.def.modExtensions?.OfType<UnlockResearchOnDiscovery>() ?? Enumerable.Empty<UnlockResearchOnDiscovery>())
@@ -221,10 +210,6 @@ namespace Discoveries
                     return true;
                 }
             }
-            if (DiscoveriesMod.settings.excludeResearched && IsThingResearched(thing.def))
-            {
-                return true;
-            }
             return false;
         }
         public static bool ShouldObscureResearch(ResearchProjectDef research)
@@ -254,6 +239,16 @@ namespace Discoveries
             Scribe_Collections.Look(ref discoveredCustomXenotypes, "discoveredCustomXenotypes", LookMode.Value);
             Scribe_Collections.Look(ref discoveredResearchProjectDefNames, "discoveredResearchProjectDefNames", LookMode.Value);
             Scribe_Collections.Look(ref discoveredFactionDefNames, "discoveredFactionDefNames", LookMode.Value);
+            EnsureNotNull();
+        }
+
+        private static void EnsureNotNull()
+        {
+            discoveredThingDefNames ??= new HashSet<string>();
+            discoveredXenotypeDefNames ??= new HashSet<string>();
+            discoveredCustomXenotypes ??= new HashSet<string>();
+            discoveredResearchProjectDefNames ??= new HashSet<string>();
+            discoveredFactionDefNames ??= new HashSet<string>();
         }
 
         public static bool IsResearchLockedByDiscovery(ResearchProjectDef research)
@@ -263,6 +258,7 @@ namespace Discoveries
 
         public static void Reset()
         {
+            EnsureNotNull();
             discoveredThingDefNames.Clear();
             discoveredXenotypeDefNames.Clear();
             discoveredCustomXenotypes.Clear();

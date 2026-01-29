@@ -4,7 +4,6 @@ namespace Discoveries
     public class DiscoverySettings : ModSettings
     {
         public bool discoveryEnabled = true;
-        public bool excludeResearched = true;
         public bool excludeStartingScenario = true;
         public bool excludeStartingXenotypes = true;
         public bool excludeStartingAnimals = true;
@@ -18,7 +17,6 @@ namespace Discoveries
         {
             base.ExposeData();
             Scribe_Values.Look(ref discoveryEnabled, "discoveryEnabled", true);
-            Scribe_Values.Look(ref excludeResearched, "excludeResearched", true);
             Scribe_Values.Look(ref excludeStartingScenario, "excludeStartingScenario", true);
             Scribe_Values.Look(ref excludeStartingXenotypes, "excludeStartingXenotypes", true);
             Scribe_Values.Look(ref excludeStartingAnimals, "excludeStartingAnimals", true);

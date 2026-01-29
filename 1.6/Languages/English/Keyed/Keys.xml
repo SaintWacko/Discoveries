@@ -5,7 +5,6 @@
   <Disc_ViewGenes>View genes</Disc_ViewGenes>
   <Disc_CustomXenotype>Custom xenotype: {0}</Disc_CustomXenotype>
   <Disc_EnableDiscoverySystem>Enable discovery system</Disc_EnableDiscoverySystem>
-  <Disc_ExcludeResearched>Exclude everything that is researched</Disc_ExcludeResearched>
   <Disc_ExcludeStartingScenario>Exclude everything spawned from starting scenario</Disc_ExcludeStartingScenario>
   <Disc_ExcludeStartingXenotypes>Exclude starting pawn xenotypes from discovery</Disc_ExcludeStartingXenotypes>
   <Disc_ExcludeStartingAnimals>Exclude starting colony animals from discovery</Disc_ExcludeStartingAnimals>

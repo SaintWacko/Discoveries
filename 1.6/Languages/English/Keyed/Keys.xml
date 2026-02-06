@@ -20,5 +20,4 @@
   <Disc_ResearchNotDiscovered>A relevant thing or creature has not been discovered yet.</Disc_ResearchNotDiscovered>
   <Disc_ResearchUnlocked>Due to this discovery, {0} is now available to research.</Disc_ResearchUnlocked>
   <Disc_ResearchUnlockedFuture>This discovery has unlocked access to a future research project.</Disc_ResearchUnlockedFuture>
-  <Disc_DisableResearchUnlockSystem>Disable the research unlocks system</Disc_DisableResearchUnlockSystem>
 </LanguageData>
